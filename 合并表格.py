@@ -26,15 +26,18 @@ for x in list_file_name:
 
         sheet_names = pd.ExcelFile(x)
         sheet_names_list = sheet_names.sheet_names
-        for i in sheet_names_list:
-            try:
-                df1 = pd.read_excel(x, sheet_name=i,header=0)[cols]
-                df1['Sheet_name']=i
-                lt.append(df1)
-                print(i)
-            except:
-                pass
-
+        try:
+             for i in sheet_names_list:
+                 try:
+                     df1 = pd.read_excel(x, sheet_name=i,header=0)[cols]
+                     df1['Sheet_name']=i
+                     lt.append(df1)
+                     print(i)
+                 except:
+                     pass
+         except:
+              pass
+              
 mg = pd.concat(lt, ignore_index=True)
 
 mg.to_excel(path+'./输出结果.xlsx')
